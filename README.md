@@ -9,6 +9,7 @@ Realisé avec Symfony 5.4.9 et MySql 8.0.29 avec Docker pour démarrer le serveu
 ## Démarrer le projet
 
 Run `docker-compose up`.  rendez-vous sur `http://127.0.0.1:8081/` pour visualiser l'application
+
 PhpMyAdmin sur `http://127.0.0.1:8080/`
 
 ## Déployer la base de données 
