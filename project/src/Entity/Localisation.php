@@ -44,6 +44,11 @@ class Localisation
      */
     private $geolocalisations;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=shop::class, inversedBy="localisations")
+     */
+    private $shop;
+
     public function __construct()
     {
         $this->geolocalisations = new ArrayCollection();
@@ -128,6 +133,18 @@ class Localisation
                 $geolocalisation->setLocalisation(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getShop(): ?shop
+    {
+        return $this->shop;
+    }
+
+    public function setShop(?shop $shop): self
+    {
+        $this->shop = $shop;
 
         return $this;
     }

@@ -35,12 +35,12 @@ class Shop
     private $active;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="string", length=255)
      */
     private $create_at;
 
     /**
-     * @ORM\Column(type="date", nullable=true)
+     * @ORM\Column(type="string", length=255)
      */
     private $updated_at;
 
@@ -59,9 +59,15 @@ class Shop
      */
     private $offers;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Localisation::class, mappedBy="shop")
+     */
+    private $localisations;
+
     public function __construct()
     {
         $this->offers = new ArrayCollection();
+        $this->localisations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -105,24 +111,24 @@ class Shop
         return $this;
     }
 
-    public function getCreateAt(): ?\DateTimeInterface
+    public function getCreateAt(): ?string
     {
         return $this->create_at;
     }
 
-    public function setCreateAt(\DateTimeInterface $create_at): self
+    public function setCreateAt(string $create_at): self
     {
         $this->create_at = $create_at;
 
         return $this;
     }
 
-    public function getUpdatedAt(): ?\DateTimeInterface
+    public function getUpdatedAt(): ?string
     {
         return $this->updated_at;
     }
 
-    public function setUpdatedAt(?\DateTimeInterface $updated_at): self
+    public function setUpdatedAt(string $updated_at): self
     {
         $this->updated_at = $updated_at;
 
@@ -177,6 +183,36 @@ class Shop
             // set the owning side to null (unless already changed)
             if ($offer->getShop() === $this) {
                 $offer->setShop(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Localisation>
+     */
+    public function getLocalisations(): Collection
+    {
+        return $this->localisations;
+    }
+
+    public function addLocalisation(Localisation $localisation): self
+    {
+        if (!$this->localisations->contains($localisation)) {
+            $this->localisations[] = $localisation;
+            $localisation->setShop($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLocalisation(Localisation $localisation): self
+    {
+        if ($this->localisations->removeElement($localisation)) {
+            // set the owning side to null (unless already changed)
+            if ($localisation->getShop() === $this) {
+                $localisation->setShop(null);
             }
         }
 

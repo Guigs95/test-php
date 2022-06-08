@@ -18,7 +18,7 @@ class Geolocalisation
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity=localisation::class, inversedBy="geolocalisations")
+     * @ORM\ManyToOne(targetEntity=Localisation::class, inversedBy="geolocalisations")
      */
     private $localisation;
 
